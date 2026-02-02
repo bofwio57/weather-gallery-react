@@ -4,9 +4,9 @@ import styled, { css } from "styled-components";
 
 const NotWrapper = styled.div`
     position: relative;
-    height: 480px;
+    height: 460px;
     border-radius: 2.5rem;
-    background: white;
+    background: var(--page-color-white);
     border: 2px solid rgb(226 232 240 / 1);
     display: flex;
     align-items: center;
@@ -47,7 +47,7 @@ const NotBtn = styled.button`
     right: -0.5rem;
     z-index: 10;
     background: rgb(255 255 255 /1);
-    color: #ef4444;
+    color: var(--page-color-red);
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
@@ -60,7 +60,7 @@ const NotBtn = styled.button`
 
     &:hover {
         transform: rotate(90deg);
-        background: #ef4444;
+        background: var(--page-color-red);
         color: #fff;
     }
 `;

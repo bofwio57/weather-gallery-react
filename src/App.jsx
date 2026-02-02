@@ -18,7 +18,7 @@ const spin = keyframes`
 
 const AppContainer = styled.div`
     min-height: 100vh;
-    padding: 2rem 1rem 5rem;
+    padding: 2rem 2rem 5rem;
     max-width: 1400px;
     margin: 0 auto;
 `;
@@ -40,16 +40,17 @@ const Header = styled.header`
 const Logo = styled.div`
     h1 {
         font-size: 2.5rem;
-        font-weight: 800;
+        font-weight: 900;
         margin: 0;
         letter-spacing: -0.03em;
+        text-transform: uppercase;
         span {
-            color: var(--accent-color);
+            color: var(--page-color-point);
         }
     }
     p {
         margin: 0.25rem 0 0;
-        color: var(--text-muted);
+        color: var(--page-color-gray);
         font-weight: 500;
         font-size: 0.9rem;
         text-transform: uppercase;
@@ -69,7 +70,7 @@ const SearchBar = styled.div`
         transform: translateY(-50%);
         width: 1.25rem;
         height: 1.25rem;
-        color: #94a3b8;
+        color: var(--page-color-light-gray);
     }
 
     button {
@@ -77,8 +78,8 @@ const SearchBar = styled.div`
         right: 0.625rem;
         top: 50%;
         transform: translateY(-50%);
-        background: var(--text-main);
-        color: white;
+        background: var(--page-color-text);
+        color: var(--page-color-white);
         border: none;
         border-radius: 0.75rem;
         padding: 0.4rem 0.9rem;
@@ -90,11 +91,15 @@ const SearchBar = styled.div`
             cursor: not-allowed;
         }
     }
+
+    @media (max-width: 768px) {
+        max-width: 100%;
+    }
 `;
 
 const SearchInput = styled.input`
     width: 100%;
-    background: white;
+    background: var(--page-color-white);
     border: 1px solid #e2e8f0;
     border-radius: 1.25rem;
     padding: 0.875rem 1.25rem 0.875rem 3rem;
@@ -105,7 +110,7 @@ const SearchInput = styled.input`
 
     &:focus {
         outline: none;
-        border-color: var(--accent-color);
+        border-color: var(--page-color-point);
         box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
     }
 `;
@@ -127,7 +132,7 @@ const EmptyState = styled.div`
     align-items: center;
     justify-content: center;
     padding: 5rem 0;
-    color: #64748b;
+    color: var(--page-color-gray);
     text-align: center;
     grid-column: 1 / -1;
 `;
@@ -135,7 +140,7 @@ const EmptyState = styled.div`
 const EmptyIconCircle = styled.div`
     width: 5rem;
     height: 5rem;
-    background-color: white;
+    background-color: var(--page-color-white);
     border: 1px solid #f1f5f9;
     border-radius: 50%;
     display: flex;
@@ -153,9 +158,9 @@ const EmptyIconCircle = styled.div`
 
 const LoadingCard = styled.div`
     position: relative;
-    height: 480px;
+    height: 460px;
     border-radius: 2.5rem;
-    background: white;
+    background: var(--page-color-white);
     border: 1px dashed #e2e8f0;
     animation: ${pulse} 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     display: flex;
@@ -169,7 +174,7 @@ const LoadingCard = styled.div`
         gap: 0.75rem;
 
         span {
-            color: #94a3b8;
+            color: var(--page-color-light-gray);
             font-size: 0.875rem;
             font-weight: 500;
         }
@@ -183,28 +188,6 @@ const Spinner = styled.div`
     border-top-color: #3b82f6;
     border-radius: 50%;
     animation: ${spin} 1s linear infinite;
-`;
-
-const FloatingButton = styled.button`
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 4rem;
-    height: 4rem;
-    background: var(--accent-color);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 15px 30px -5px rgba(59, 130, 246, 0.5);
-    border: 4px solid white;
-    cursor: pointer;
-    z-index: 100;
-
-    @media (min-width: 768px) {
-        display: none;
-    }
 `;
 
 const App = () => {
@@ -326,17 +309,6 @@ const App = () => {
                     </CityGrid>
                 )}
             </MainContent>
-
-            <FloatingButton
-                onClick={() => {
-                    const city = prompt("도시 이름을 입력하세요:");
-                    if (city) handleAddCity(city);
-                }}
-            >
-                <svg style={{ width: "2rem", height: "2rem" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-            </FloatingButton>
         </AppContainer>
     );
 };
