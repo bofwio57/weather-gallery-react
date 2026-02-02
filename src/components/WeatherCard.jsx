@@ -8,21 +8,21 @@ const DeleteBtn = styled.button`
     right: -0.5rem;
     z-index: 10;
     background: #1e293b;
-    color: white;
+    color: var(--page-color-white);
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid white;
+    border: 2px solid var(--page-color-white);
     cursor: pointer;
     opacity: 0;
     transition: all 0.35s;
 
     &:hover {
         transform: rotate(90deg);
-        background: #ef4444;
+        background: var(--page-color-red);
     }
 `;
 const CardWrapper = styled.div`
@@ -57,7 +57,7 @@ const CardFace = styled.div`
 `;
 
 const CardFront = styled(CardFace)`
-    background: white;
+    background: var(--page-color-white);
 `;
 
 const CardBack = styled(CardFace)`
@@ -83,14 +83,13 @@ const InfoPanel = styled.div`
     top: 0;
     width: 100%;
     height: 100%;
-    background: var(--glass-overlay);
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(16px);
     padding: 2.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    color: white;
+    color: var(--page-color-white);
 `;
 
 // --- 내부 세부 스타일 ---
@@ -176,12 +175,12 @@ const BackHeader = styled.div`
         font-size: 0.9rem;
         font-weight: 800;
         text-transform: uppercase;
-        color: #94a3b8;
+        color: var(--page-color-light-gray);
     }
     p {
         margin: 0.2rem 0 0;
         font-size: 0.75rem;
-        color: #64748b;
+        color: var(--page-color-gray);
         font-weight: 500;
     }
 `;
@@ -202,7 +201,7 @@ const SunBox = styled.div`
     .label {
         margin: 0;
         font-size: 0.55rem;
-        color: #94a3b8;
+        color: var(--page-color-light-gray);
         font-weight: 800;
         text-transform: uppercase;
     }
@@ -225,7 +224,7 @@ const ForecastBox = styled.div`
         font-size: 0.65rem;
         font-weight: 800;
         text-transform: uppercase;
-        color: #94a3b8;
+        color: var(--page-color-light-gray);
         border-bottom: 1px solid #e2e8f0;
         padding-bottom: 0.5rem;
     }
@@ -240,7 +239,7 @@ const ForecastRow = styled.div`
         width: 2rem;
         font-size: 0.7rem;
         font-weight: 700;
-        color: #64748b;
+        color: var(--page-color-gray);
     }
     .temp {
         width: 2rem;
