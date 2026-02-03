@@ -4,6 +4,7 @@ import NotFoundCard from "./components/NotFoundCard.jsx";
 import { fetchWeather } from "./lib/weatherService.js";
 import { fetchCityImage } from "./lib/pixabayService.js";
 import styled, { keyframes } from "styled-components";
+import { Search, Cloud } from "react-feather";
 
 // 애니메이션 정의
 const pulse = keyframes`
@@ -116,7 +117,7 @@ const SearchInput = styled.input`
 `;
 
 const MainContent = styled.main`
-    /* 필요한 스타일 추가 */
+    /* 스타일 추가 */
 `;
 
 const CityGrid = styled.div`
@@ -191,33 +192,37 @@ const Spinner = styled.div`
 `;
 
 const App = () => {
-    const [cities, setCities] = useState([]);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [cities, setCities] = useState([]); //갤러리 도시 데이터
+    const [searchQuery, setSearchQuery] = useState(""); //입력값
+    const [loading, setLoading] = useState(false); //로딩중
 
+    //초기 로딩
+    //localStorage에 데이터가 있다면 가져와라
     useEffect(() => {
         const saved = localStorage.getItem("weather_gallery_owm");
         if (saved) {
             setCities(JSON.parse(saved));
-        } else {
-            handleAddCity("Seoul");
         }
     }, []);
 
+    //상태 저장
+    //도시 변경시 localStorage 동기화
     useEffect(() => {
         localStorage.setItem("weather_gallery_owm", JSON.stringify(cities));
     }, [cities]);
 
+    //도시 추가(갤러리 추가)
     const handleAddCity = async (cityName) => {
-        if (!cityName.trim()) return;
+        if (!cityName.trim()) return; //빈 문자열 방지
 
+        //로딩중
         setLoading(true);
-        // setError(null);
 
         try {
-            const weatherData = await fetchWeather(cityName);
-            const imageUrl = await fetchCityImage(cityName);
+            const weatherData = await fetchWeather(cityName); //날씨
+            const imageUrl = await fetchCityImage(cityName); //이미지
 
+            //성공
             const newCity = {
                 ...weatherData,
                 type: "newCity",
@@ -225,9 +230,10 @@ const App = () => {
                 imageUrl,
             };
 
-            setCities((prev) => [newCity, ...prev]);
-            setSearchQuery("");
+            setCities((prev) => [newCity, ...prev]); //새로운 도시를 앞으로
+            setSearchQuery(""); //검색창 빈칸 만들기
         } catch (err) {
+            //실패
             const notFoundCity = {
                 type: "notFoundCity",
                 id: Date.now().toString(),
@@ -241,6 +247,7 @@ const App = () => {
         }
     };
 
+    //삭제
     const removeCity = (id) => {
         setCities((prev) => prev.filter((c) => c.id !== id));
     };
@@ -256,9 +263,8 @@ const App = () => {
                 </Logo>
 
                 <SearchBar>
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
+                    <Search />
+
                     <SearchInput
                         type="text"
                         placeholder="Add a City..."
@@ -276,14 +282,7 @@ const App = () => {
                 {cities.length === 0 && !loading ? (
                     <EmptyState>
                         <EmptyIconCircle>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={1}
-                                    d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
-                                />
-                            </svg>
+                            <Cloud />
                         </EmptyIconCircle>
                         <p style={{ fontSize: "1.125rem", fontWeight: 500, marginBottom: "0.25rem" }}>Your gallery is empty.</p>
                         <p style={{ fontSize: "0.875rem" }}>Search for a city to start building your dashboard.</p>

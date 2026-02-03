@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { WeatherIcon, WindIcon, DropIcon, VisibilityIcon, PinIcon } from "./Icons.jsx";
+import { WeatherIcon } from "./Icons.jsx";
 import styled, { keyframes } from "styled-components";
+import { X, MapPin, Wind, Droplet, Eye } from "react-feather";
 
 const DeleteBtn = styled.button`
     position: absolute;
@@ -92,8 +93,7 @@ const InfoPanel = styled.div`
     color: var(--page-color-white);
 `;
 
-// --- 내부 세부 스타일 ---
-
+// --- 내부 스타일 ---
 const CityBadge = styled.div`
     display: flex;
     align-items: center;
@@ -156,6 +156,7 @@ const DetailItem = styled.div`
     display: flex;
     align-items: center;
     gap: 0.8rem;
+    opacity: 0.7;
 
     span {
         font-size: 0.7rem;
@@ -164,7 +165,6 @@ const DetailItem = styled.div`
 `;
 
 // --- Back Side 전용 스타일 ---
-
 const BackHeader = styled.div`
     display: flex;
     justify-content: space-between;
@@ -235,6 +235,9 @@ const ForecastRow = styled.div`
     justify-content: space-between;
     align-items: center;
 
+    svg {
+        color: #cbd5e1;
+    }
     .day {
         width: 2rem;
         font-size: 0.7rem;
@@ -260,7 +263,7 @@ const FlipFooter = styled.p`
 `;
 
 const WeatherCard = ({ weather, onDelete }) => {
-    const [isFlipped, setIsFlipped] = useState(false);
+    const [isFlipped, setIsFlipped] = useState(false); //flipp 상태
 
     const handleFlip = () => {
         setIsFlipped(!isFlipped);
@@ -270,13 +273,11 @@ const WeatherCard = ({ weather, onDelete }) => {
         <CardWrapper>
             <DeleteBtn
                 onClick={(e) => {
-                    e.stopPropagation();
+                    e.stopPropagation(); //카드 클릭 차단
                     onDelete(weather.id);
                 }}
             >
-                <svg style={{ width: "2.5rem", height: "2.5rem" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <X />
             </DeleteBtn>
 
             <CardInner className={isFlipped ? "is-flipped" : ""} onClick={handleFlip}>
@@ -286,7 +287,7 @@ const WeatherCard = ({ weather, onDelete }) => {
                     <InfoPanel>
                         <div>
                             <CityBadge>
-                                <PinIcon style={{ width: "0.9rem", height: "0.9rem" }} />
+                                <MapPin size={14} />
                                 <span>{weather.city}</span>
                             </CityBadge>
                             <MainTemp>
@@ -304,15 +305,15 @@ const WeatherCard = ({ weather, onDelete }) => {
 
                         <DetailInfoList>
                             <DetailItem>
-                                <WindIcon style={{ width: "1.1rem", height: "1.1rem", opacity: 0.7 }} />
+                                <Wind size={16} />
                                 <span>{weather.windSpeed} KM/H</span>
                             </DetailItem>
                             <DetailItem>
-                                <DropIcon style={{ width: "1.1rem", height: "1.1rem", opacity: 0.7 }} />
+                                <Droplet size={16} />
                                 <span>{weather.humidity} %</span>
                             </DetailItem>
                             <DetailItem>
-                                <VisibilityIcon style={{ width: "1.1rem", height: "1.1rem", opacity: 0.7 }} />
+                                <Eye size={16} />
                                 <span>{weather.visibility}</span>
                             </DetailItem>
                         </DetailInfoList>

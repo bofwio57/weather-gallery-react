@@ -1,6 +1,6 @@
 import React from "react";
-
 import styled, { css } from "styled-components";
+import { X, AlertTriangle } from "react-feather";
 
 const NotWrapper = styled.div`
     position: relative;
@@ -90,25 +90,16 @@ const NotFoundCard = ({ query, not, onDelete }) => {
         <NotWrapper>
             <NotBtn
                 onClick={(e) => {
-                    e.stopPropagation();
+                    e.stopPropagation(); //카드 클릭 차단
                     onDelete(not.id);
                 }}
             >
-                <svg style={{ width: "2.5rem", height: "2.5rem" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <X />
             </NotBtn>
 
             <div className="inner">
                 <NotFoundIcon>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="1.5"
-                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                        />
-                    </svg>
+                    <AlertTriangle />
                 </NotFoundIcon>
 
                 <p>Location Not Found</p>
